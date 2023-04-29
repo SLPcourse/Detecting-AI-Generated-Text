@@ -1,32 +1,17 @@
 from textattack.augmentation import EmbeddingAugmenter
+import textattack
+from augProcess import aug_process
+
+train_data_path = "../dataset/train.json"
+val_data_path = "../dataset/val.json"
+test_data_path = "../dataset/test.json"
+
+augmenter = EmbeddingAugmenter(pct_words_to_swap=0.1, transformations_per_example=2)
+augmenter.fast_augment = True
+
+aug_process(augmenter, train_data_path, "train", "embAug", 5000)
+aug_process(augmenter, val_data_path, "val", "embAug", 500)
+aug_process(augmenter, test_data_path, "test", "embAug", 1000)
 
 
-with open(data_path, "r", encoding="utf-8") as f:
-    data = json.load(f)
 
-augmenter = EmbeddingAugmenter()
-
-machine_adv_examples = []
-human_adv_examples = []
-for example in data:
-    question = example["question"]
-    text = example["text"]
-    label = example["fake"]
-
-    candidates = augmenter.augment(text)
-    # append a tuplemy
-    if label==1: 
-        for s in candidates:
-            machine_examples.append({"question": question, "text": s, "fake": label})
-    else: 
-        for s in candidates:
-            human_examples.append({"question": question, "text": s, "fake": label})
-
-# Save samples to output file
-    with open("machine_embAug.json", "w", encoding="utf-8") as f:
-        for example in machine_examples:
-            f.write(json.dumps(example, ensure_ascii=False) + "\n")
-
-    with open("human_embAug.json", "w", encoding="utf-8") as f:
-        for example in human_examples:
-            f.write(json.dumps(example, ensure_ascii=False) + "\n")
