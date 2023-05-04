@@ -15,8 +15,8 @@ class ModelTrainer:
         val_file,
         test_file,
         model_name="bert-base-uncased",
-        batch_size=16, # BERT author suggested 16 or 32
-        num_epochs=2,  # BERT author suggested 2,3,4
+        batch_size=8, # BERT author suggested 16 or 32
+        num_epochs=4,  # BERT author suggested 2,3,4
         learning_rate=2e-5,
         warmup_steps=0.1,
     ):

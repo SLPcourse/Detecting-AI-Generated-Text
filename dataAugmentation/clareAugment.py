@@ -12,7 +12,7 @@ val_data_path = "../dataset/val.json"
 test_data_path = "../dataset/test.json"
 
 
-augmenter = ClareAugmenterForDetector(transformations_per_example=2)
+augmenter = ClareAugmenterForDetector(pct_words_to_swap=0.1, transformations_per_example=2)
 
 aug_process(augmenter, train_data_path, "train", "clare", 5000)
 aug_process(augmenter, val_data_path, "val", "clare",500)

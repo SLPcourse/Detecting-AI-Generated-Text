@@ -4,7 +4,7 @@ import textattack
 from transformers import BertTokenizer, BertForSequenceClassification
 # from textattack.models.wrappers import PyTorchModelWrapper
 
-state_dict_load = torch.load("../trainDetector/models/best_model_v1.pt")
+state_dict_load = torch.load("../trainDetector/models/adv_bae_model.pt")
 best_model = BertForSequenceClassification.from_pretrained("bert-base-uncased")# replace this line with your model loading code
 best_model.load_state_dict(state_dict_load)
 

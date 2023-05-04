@@ -29,6 +29,7 @@ class ModelTester():
     def __init__(
         self,
         test_file,
+        test_batch_size = 32,
         model_name="bert-base-uncased",
         test_model_path = "best_model.pt"
     ):
@@ -38,11 +39,13 @@ class ModelTester():
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
         self.model = BertForSequenceClassification.from_pretrained(model_name).cuda()
         self.test_model_path = test_model_path
+        self.batch_size = test_batch_size
 
     # Load data from a JSON file and return a list of examples
     def load_data(self, filepath):
         with open(filepath, "r") as f:
-            data = json.load(f)
+            data = [json.loads(line) for line in f]
+            # data = json.load(f)
         examples = []
         for example in data:
             text = example["text"]
@@ -126,9 +129,9 @@ class ModelTester():
         print(f"Best accuracy: {test_accuracy:.4f}")
         print(test_report)
 
-if __name__ == "__main__":
-    load_merge_data("dataset/chatgpt_paraphrases.csv", "dataset/chatgpt_paraphrases.json")
-    tester = ModelTester(
-        "dataset/chatgpt_paraphrase.json"
-    )
-    tester.do_evaluate()
+# if __name__ == "__main__":
+#     load_merge_data("dataset/chatgpt_paraphrases.csv", "dataset/chatgpt_paraphrases.json")
+#     tester = ModelTester(
+#         "dataset/chatgpt_paraphrase.json"
+#     )
+#     tester.do_evaluate()

@@ -3,7 +3,7 @@
 
 #python batchtest.py -key $openai_key --dataset HDFS
 
+python charswapAugment.py
 python embeddingAugment.py
 python wordnetAugment.py
-python charswapAugment.py
 python edaAugment.py
